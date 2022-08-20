@@ -46,5 +46,9 @@ pipeline {
             }
         }
 
+         stage ('cleanup'){
+            cleanWs()
+        }
+
       }
     }
