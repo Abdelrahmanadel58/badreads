@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: abdelrahman58/badreads-${BRANCH_NAME}-${BUILD_NUMBER}
+        image: abdelrahman58/badreadsfrontend-$BRANCH_NAME-$BUILD_NUMBER
         ports:
         - containerPort: 3000
 
