@@ -7,7 +7,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'docker-login', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                         sh """
                             docker login -u '${USERNAME}' -p '${PASSWORD}'
-                            docker build -t abdelrahman58/badreadsbackend-$BRANCH_NAME-${BUILD_NUMBER} badreads-backend/ 
+                            docker build -t abdelrahman58/badreadsbackend-env.BRANCH_NAME-${BUILD_NUMBER} badreads-backend/ 
                             docker push abdelrahman58/badreadsbackend-$BRANCH_NAME-$BUILD_NUMBER
                         """
                      }   
