@@ -26,7 +26,7 @@ pipeline {
 
                 }
              }
-        stage('Deploy-application') {
+        stage('Deploy-backend') {
             steps {
                withCredentials([file(credentialsId: 'k8s', variable: 'Secretfile')]) {
                 script {
