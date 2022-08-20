@@ -7,7 +7,7 @@ pipeline {
                     withCredentials([usernamePassword(credentialsId: 'docker-login', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                         sh """
                             docker login -u '${USERNAME}' -p '${PASSWORD}'
-                            echo "branch name : ${env.BRANCH_NAME}"
+                            echo "branch name : ${BRANCH_NAME}"
 
                         """
                      }   
