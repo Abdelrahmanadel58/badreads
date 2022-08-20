@@ -6,7 +6,7 @@ pipeline {
                 script {
                     withCredentials([usernamePassword(credentialsId: 'docker-login', passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
                         sh """
-                            docker build -t abdelrahman58/badreadsbackend-$BRANCH_NAME-$BUILD_NUMBER badreads-backend/
+                            docker build -t abdelrahman58/badreadsbackend-$BRANCH_NAME-$BUILD_NUMBER ./badreads-backend/
                             docker login -u '${USERNAME}' -p '${PASSWORD}'
                             docker push abdelrahman58/badreadsbackend-$BRANCH_NAME-$BUILD_NUMBER
                         """
@@ -31,8 +31,8 @@ pipeline {
                withCredentials([file(credentialsId: 'k8s', variable: 'Secretfile')]) {
                 script {
                         sh """
-                            cat k8s/backend.yaml | envsubst > k8s/back-end.yaml
-                            cat k8s/frontend.yaml | envsubst > k8s/front-end.yaml
+                            cat k8s/backend.yaml | envsubst > k8s/back-end.yaml && rm k8s/backend.yaml
+                            cat k8s/frontend.yaml | envsubst > k8s/front-end.yaml && rm k8s/frontend.yaml 
                             kubectl apply -f k8s/ --kubeconfig=$Secretfile
                         """
                     }
