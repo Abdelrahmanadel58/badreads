@@ -1,0 +1,43 @@
+version: '3'
+services:
+  mongo:
+    image: 'mongo:4.2.8'
+    environment:
+      - MONGO_INITDB_DATABASE=admin
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=123456
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+  nginx:
+    restart: always
+    image: kareemelkasaby/nodenginx:latest
+    ports:
+      - '80:80'
+      - '3000:80'
+  api:
+    image: kareemelkasaby/badreads-backend:latest
+    # volumes:
+    #   - /app/node_modules
+    #   - ./badreads-backend:/app
+    restart: always
+    env_file:
+      - ./badreads-backend/.env
+    expose:
+      - 4000
+    ports: 
+      - 4000:4000
+    depends_on: 
+      - mongo
+  react:
+    image: kareemelkasaby/badreads-frontend:latest
+    depends_on: 
+      - api
+    env_file:
+      - ./badreads-frontend/.env
+    # volumes:
+    #   - /app/node_modules
+    #   - ./badreads-frontend:/app
+    # hello coment
+    links:
+      - api
+    stdin_open: true
