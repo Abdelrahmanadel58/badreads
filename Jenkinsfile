@@ -8,8 +8,7 @@ pipeline {
                         sh """
                             docker login -u '${USERNAME}' -p '${PASSWORD}'
                             echo "branch name : ${env.BRANCH_NAME}"
-                            //docker build -t abdelrahman58/badreadsbackend-${BRANCH_NAME}-${BUILD_NUMBER} ./badreads-frontend
-                            //docker push abdelrahman58/badreadsbackend-$BRANCH_NAME-$BUILD_NUMBER
+
                         """
                      }   
                     }
