@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: jenkins
+  name: jenkins
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jenkins
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: jenkins
+    spec:
+      containers:
+      - image: jenkins/jenkins:lts-jdk11   #jenkins/jenkins
+        name: jenkins
+        resources: {}
+        ports:
+          - containerPort: 8080
+            protocol: TCP
+          - containerPort: 5000
+            protocol: TCP
+        readinessProbe:
+          failureThreshold: 5
+          httpGet:
+            path: /login
+            port: 8080
+            scheme: HTTP
+          periodSeconds: 10
+          successThreshold: 2
+          timeoutSeconds: 5
